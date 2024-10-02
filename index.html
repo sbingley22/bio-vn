@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visual Novel Game</title>
+    <title>Bio Novel</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,12 +15,15 @@
 		<div id="header">
 			<button id="research-btn">Research</button>
 			<div>
+				<label for="popup-checkbox">Open in PopUp</label>
+				<input type="checkbox" id="popup-checkbox" checked>
+			</div>
+			<div>
 				<label for="alt-checkbox">Alt</label>
 				<input type="checkbox" id="alt-checkbox">
 			</div>
 		</div>
 
-		<!-- Research Overlay -->
 		<div id="research-overlay">
 			<div id="research-content">
 				<button id="close-research">Close</button>
@@ -28,8 +31,11 @@
 				<div id="research-links"></div> 
 			</div>
 		</div>
+
     </div>
 
+	<script src="scenedata.js"></script>
+	<script src="research.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

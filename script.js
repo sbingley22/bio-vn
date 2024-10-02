@@ -1,80 +1,17 @@
-const dialogueData = [
-    {
-        "background": "black.jpg",
-		"type": "dialogue",
-        "dialogue": [
-            "Urghh...",
-        ]
-    },
-    {
-        "background": "hospital-room-bed.png",
-		"type": "dialogue",
-        "dialogue": [
-            "Where am I?",
-            "..."
-        ]
-    },
-    {
-        "background": "hospital-room-sitting-orig.png",
-		"type": "dialogue",
-        "dialogue": [
-            "I feel so groggy...",
-            "I should lay down...",
-            "No! I need to stay awake!",
-			"[The door suddenly opens]"
-        ]
-    },
-    {
-        "background": "hospital-room-nurse-1.png",
-		"type": "dialogue",
-        "dialogue": [
-			"Oh dear your awake.",
-            "Your dosage needs to be increased again dear. Don't worry, I'll let the doctor know asap.",
-			"Now, would you kindly take your Xanax.",
-			"[The nurse hands you the Xanax bottle from the pile of medication on your bedside cabinet]",
-			"Take the medicine:",
-        ]
-    },
-    {
-        "background": "hospital-room-nurse-1.png",
-		"type": "choice",
-		"choices": [
-			"Xanax",
-			"Modafinil",
-			"Adderall",
-			"Benadryl",
-			"Valium",
-		],
-		"correct": [1,2],
-    },
-    {
-        "background": "hospital-room-nurse-2.png",
-		"type": "dialogue",
-        "dialogue": [
-            "SPIT IT OUT!",
-            "SPIT IT OUT! NOW! YOU STUPID GIRL!",
-			"[You swallow the pill]",
-        ]
-    },
-]
-
-const research = {
-	"Xanax": "https://pubmed.ncbi.nlm.nih.gov/3655003/",
-	"Modafinil": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2654794/",
-	"Adderall": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3965894/",
-	"Benadryl": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4592307/",
-	"Valium": "https://pubmed.ncbi.nlm.nih.gov/3183072/",
-}
-
 let altEnabled = false;
+let popUpEnabled = true;
 
 document.getElementById('alt-checkbox').addEventListener('change', (event) => {
     altEnabled = event.target.checked;
-    // console.log('Alt enabled:', altEnabled);
 });
 
+document.getElementById('popup-checkbox').addEventListener('change', (event) => {
+    popUpEnabled = event.target.checked;
+});
 
-document.getElementById('research-btn').addEventListener('click', () => {
+document.getElementById('research-btn').addEventListener('click', (event) => {
+	event.preventDefault()
+
     // Display the overlay
     const overlay = document.getElementById('research-overlay');
     overlay.style.display = 'flex'; // Show the overlay with flex positioning
@@ -89,11 +26,20 @@ document.getElementById('research-btn').addEventListener('click', () => {
         const linkElement = document.createElement('a');
         linkElement.href = url;
         linkElement.textContent = drug;
-        linkElement.target = "_blank"; // Open in a new tab
-        linkElement.style.display = 'block'; // Make each link display on a new line
-        
-        // Append the link to the container
-        researchLinksContainer.appendChild(linkElement);
+        linkElement.style.display = 'block';
+
+		if (popUpEnabled) {
+		   // Open the link in a popup window when clicked
+			linkElement.addEventListener('click', (e) => {
+				e.preventDefault()
+				window.open(url, '_blank', 'width=800,height=900,scrollbars=yes,screenX=0');
+			}); 
+			// Append the link to the container
+			researchLinksContainer.appendChild(linkElement);
+		}
+		else {
+			linkElement.target = "_blank"; // Open in a new tab
+		}
     }
 });
 
@@ -111,19 +57,19 @@ showScene(currentScene, currentLine, altEnabled);
 
 // Set up the next button
 document.getElementById('dialogue-box').addEventListener('click', () => {
-	let type = dialogueData[currentScene].type
+	let type = sceneData[currentScene].type
 	if (type === "choice") return
 
     currentLine++;
-    if (currentLine >= dialogueData[currentScene].dialogue.length) {
+    if (currentLine >= sceneData[currentScene].dialogue.length) {
         currentLine = 0;
         currentScene++;
-        if (currentScene >= dialogueData.length) {
+        if (currentScene >= sceneData.length) {
             currentScene = 0; // Loop back to the first scene (or end the game)
         }
     }
 
-	type = dialogueData[currentScene].type
+	type = sceneData[currentScene].type
 	if (type === "choice") showChoice(currentScene)
 	else showScene(currentScene, currentLine, altEnabled)
 });
@@ -143,7 +89,7 @@ function showScene(sceneIndex, lineIndex, altEnabled) {
     dialogueBoxElement.appendChild(dialogueTextElement);
 	
 	// Set the background and display dialogue
-    const scene = dialogueData[sceneIndex];
+    const scene = sceneData[sceneIndex];
 	const altLocation = altEnabled ? "dev/" : "";
     const altImagePath = `assets/scenes/${altLocation}${scene.background}`;
     const defaultImagePath = `assets/scenes/${scene.background}`;
@@ -170,7 +116,7 @@ function showScene(sceneIndex, lineIndex, altEnabled) {
 function showChoice(sceneIndex, altEnabled) {
     const backgroundElement = document.getElementById('background');
     const dialogueBoxElement = document.getElementById('dialogue-box');
-    const scene = dialogueData[sceneIndex];
+    const scene = sceneData[sceneIndex];
 
     // Clear existing dialogue text and buttons
     dialogueBoxElement.innerHTML = '';
@@ -195,6 +141,21 @@ function showChoice(sceneIndex, altEnabled) {
             currentLine = 0; // Reset the line counter for the new scene
             showScene(currentScene, currentLine);
         });
+		
+		// Add right-click event listener for research popup
+        button.addEventListener('contextmenu', (event) => {
+            event.preventDefault(); // Prevent the default right-click menu
+
+            const researchUrl = research[choice]; // Get the research URL from the research object
+
+            if (researchUrl) {
+                // Open a popup window with the research link
+                window.open(researchUrl, '_blank', 'width=800,height=900,scrollbars=yes,left=0');
+            } else {
+                console.log('No research available for this choice.');
+            }
+        });
+
     });
 }
 
