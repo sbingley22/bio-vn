@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Novel Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="background" id="background"></div>
+        <div class="dialogue-box" id="dialogue-box"></div>
+
+		<div id="hover-area"></div>
+		<div id="header">
+			<button id="research-btn">Research</button>
+			<div>
+				<label for="alt-checkbox">Alt</label>
+				<input type="checkbox" id="alt-checkbox">
+			</div>
+		</div>
+
+		<!-- Research Overlay -->
+		<div id="research-overlay">
+			<div id="research-content">
+				<button id="close-research">Close</button>
+				<h2>Research Links</h2>
+				<div id="research-links"></div> 
+			</div>
+		</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
