@@ -32,7 +32,7 @@ document.getElementById('research-btn').addEventListener('click', (event) => {
 		   // Open the link in a popup window when clicked
 			linkElement.addEventListener('click', (e) => {
 				e.preventDefault()
-				window.open(url, '_blank', 'width=800,height=900,scrollbars=yes,screenX=0');
+				window.open(url, '_blank', 'width=800,height=900,scrollbars=yes,screenX=10,screenY=10,left=30%,top=10%');
 			}); 
 			// Append the link to the container
 			researchLinksContainer.appendChild(linkElement);
@@ -74,22 +74,7 @@ document.getElementById('dialogue-box').addEventListener('click', () => {
 	else showScene(currentScene, currentLine, altEnabled)
 });
 
-// Function to display the scene and dialogue
-function showScene(sceneIndex, lineIndex, altEnabled) {
-    const backgroundElement = document.getElementById('background');
-    const dialogueBoxElement = document.getElementById('dialogue-box');
-    
-    // Clear the dialogue box before adding the dialogue text
-    dialogueBoxElement.innerHTML = '';
-
-    // Recreate the dialogue text element
-    const dialogueTextElement = document.createElement('p');
-    dialogueTextElement.id = 'dialogue-text';
-	dialogueTextElement.classList.add('dialogue-text')
-    dialogueBoxElement.appendChild(dialogueTextElement);
-	
-	// Set the background and display dialogue
-    const scene = sceneData[sceneIndex];
+function loadBgImg(scene, altEnabled, backgroundElement) {
 	const altLocation = altEnabled ? "dev/" : "";
     const altImagePath = `assets/scenes/${altLocation}${scene.background}`;
     const defaultImagePath = `assets/scenes/${scene.background}`;
@@ -107,6 +92,25 @@ function showScene(sceneIndex, lineIndex, altEnabled) {
 
     // Try to load the alt image
     img.src = altImagePath;
+}
+
+// Function to display the scene and dialogue
+function showScene(sceneIndex, lineIndex, altEnabled) {
+    const backgroundElement = document.getElementById('background');
+    const dialogueBoxElement = document.getElementById('dialogue-box');
+    
+    // Clear the dialogue box before adding the dialogue text
+    dialogueBoxElement.innerHTML = '';
+
+    // Recreate the dialogue text element
+    const dialogueTextElement = document.createElement('p');
+    dialogueTextElement.id = 'dialogue-text';
+	dialogueTextElement.classList.add('dialogue-text')
+    dialogueBoxElement.appendChild(dialogueTextElement);
+	
+	// Set the background and display dialogue
+    const scene = sceneData[sceneIndex];
+	loadBgImg(scene, altEnabled, backgroundElement)
 
     // Set the dialogue text
     dialogueTextElement.textContent = scene.dialogue[lineIndex];
@@ -122,7 +126,7 @@ function showChoice(sceneIndex, altEnabled) {
     dialogueBoxElement.innerHTML = '';
 
     // Set the background image
-    backgroundElement.style.backgroundImage = `url('assets/scenes/${scene.background}')`;
+	loadBgImg(scene, altEnabled, backgroundElement)
 
     // Create and append buttons for each choice
     scene.choices.forEach((choice, index) => {
@@ -150,7 +154,7 @@ function showChoice(sceneIndex, altEnabled) {
 
             if (researchUrl) {
                 // Open a popup window with the research link
-                window.open(researchUrl, '_blank', 'width=800,height=900,scrollbars=yes,left=0');
+				window.open(researchUrl, '_blank', 'width=800,height=900,scrollbars=yes,screenX=10,screenY=10,left=30%,top=10%');
             } else {
                 console.log('No research available for this choice.');
             }
