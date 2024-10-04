@@ -64,6 +64,9 @@ document.getElementById('dialogue-box').addEventListener('click', () => {
     if (currentLine >= sceneData[currentScene].dialogue.length) {
         currentLine = 0;
         currentScene++;
+		if (type === "failure") {
+			currentScene = 0
+		}
         if (currentScene >= sceneData.length) {
             currentScene = 0; // Loop back to the first scene (or end the game)
         }
@@ -138,9 +141,9 @@ function showChoice(sceneIndex, altEnabled) {
         // Add event listener for each button
         button.addEventListener('click', () => {
             if (scene.correct.includes(index)) {
-                currentScene++;
+                currentScene += 2
             } else {
-                currentScene = 0;
+                currentScene += 1
             }
             currentLine = 0; // Reset the line counter for the new scene
             showScene(currentScene, currentLine);

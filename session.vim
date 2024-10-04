@@ -18,8 +18,9 @@ badd +1 script.js
 badd +1 styles.css
 badd +1 dialogues.json
 badd +1 ./
-badd +0 research.js
-badd +0 scenedata.js
+badd +1 research.js
+badd +1 scenedata.js
+badd +0 term://E:/Web_Projects/Games/bio-vn//17444:C:/Windows/system32/cmd.exe
 argglobal
 %argdel
 $argadd ./
@@ -28,7 +29,29 @@ tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
 tabrewind
+argglobal
+if bufexists(fnamemodify("term://E:/Web_Projects/Games/bio-vn//17444:C:/Windows/system32/cmd.exe", ":p")) | buffer term://E:/Web_Projects/Games/bio-vn//17444:C:/Windows/system32/cmd.exe | else | edit term://E:/Web_Projects/Games/bio-vn//17444:C:/Windows/system32/cmd.exe | endif
+if &buftype ==# 'terminal'
+  silent file term://E:/Web_Projects/Games/bio-vn//17444:C:/Windows/system32/cmd.exe
+endif
+balt scenedata.js
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 4 - ((3 * winheight(0) + 24) / 48)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 4
+normal! 029|
+tabnext
 edit index.html
 argglobal
 setlocal fdm=manual
@@ -60,12 +83,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 24) / 48)
+let s:l = 19 - ((0 * winheight(0) + 24) / 48)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 0
+keepjumps 19
+normal! 013|
 tabnext
 edit script.js
 argglobal
@@ -79,12 +102,31 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 24 - ((16 * winheight(0) + 24) / 48)
+let s:l = 67 - ((17 * winheight(0) + 24) / 48)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 24
-normal! 039|
+keepjumps 67
+normal! 027|
+tabnext
+edit scenedata.js
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 54 - ((29 * winheight(0) + 24) / 48)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 54
+normal! 018|
 tabnext
 edit research.js
 argglobal
@@ -105,26 +147,7 @@ keepjumps exe s:l
 normal! zt
 keepjumps 7
 normal! 02|
-tabnext
-edit scenedata.js
-argglobal
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 24) / 48)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 1
-normal! 0
-tabnext 3
+tabnext 4
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

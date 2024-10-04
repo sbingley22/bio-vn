@@ -47,10 +47,20 @@ const sceneData = [
         ],
         "correct": [1, 2]
     },
+	{
+		"background": "hospital-room-nurse-1.png",
+		"type": "failure",
+		"dialogue": [
+			"...",
+			"[You feel sleepy]",
+			"I'm just going to rest my eyes...",
+		]
+	},
     {
         "background": "hospital-room-nurse-2.png",
         "type": "dialogue",
         "dialogue": [
+			"...",
             "What are you doing?! No, no, no!",
             "SPIT IT OUT! NOW! YOU FOOL!",
             "[You feel the pill slide down your throat, too late to stop it.]"
@@ -105,7 +115,39 @@ const sceneData = [
             "W-What is this? Webbing?",
             "[You struggle, but the fibrous threads only tighten, pulling you deeper into their grip.]",
             "No... It’s fibronectin... It's binding to me!",
-            "[Your body feels heavy again, the effects of the medication beginning to wear off. You’re stuck, caught in a web of your own biology.]"
+            "[Your body feels heavy again, the effects of the medication beginning to wear off. You’re stuck, caught in a web of your own biology.]",
+			"[You can just about reach your medicine bag]",
+        ]
+    },
+    {
+        "background": "corridor-fibro-2.png",
+        "type": "choice",
+        "choices": [
+			"Ivabradine",
+			"Propanolol",
+            "Modafinil",
+            "Benadryl",
+			"Nattokinase",
+        ],
+        "correct": [4]
+    },
+    {
+        "background": "corridor-fibro-2.png",
+        "type": "failure",
+        "dialogue": [
+			"...",
+			"[More platelets and fibronectic stick to your skin.]",
+			"[You can't more, can't breathe...]",
+			"...",
+        ]
+    },
+    {
+        "background": "corridor-fibro-2.png",
+        "type": "dialogue",
+        "dialogue": [
+			"...",
+			"[The fibronectin begins to disolve]",
+			"[You manage to shake free]"
         ]
     },
 ];
