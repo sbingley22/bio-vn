@@ -59,6 +59,7 @@ showScene(currentScene, currentLine, altEnabled);
 document.getElementById('dialogue-box').addEventListener('click', () => {
 	let type = sceneData[currentScene].type
 	if (type === "choice") return
+	if (type === "minigame") return
 
     currentLine++;
     if (currentLine >= sceneData[currentScene].dialogue.length) {
@@ -74,6 +75,10 @@ document.getElementById('dialogue-box').addEventListener('click', () => {
 
 	type = sceneData[currentScene].type
 	if (type === "choice") showChoice(currentScene)
+	else if (type === "minigame") {
+		startMiniGame(currentScene)
+		currentScene++
+	}
 	else showScene(currentScene, currentLine, altEnabled)
 });
 

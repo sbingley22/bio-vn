@@ -88,9 +88,24 @@ const sceneData = [
         "dialogue": [
             "[You sprint down the dimly lit corridor, your legs shaky but moving with a strange urgency. The adrenaline pumps through your veins.]",
             "[You glance over your shoulder. The nurse is chasing after you, her footsteps growing louder.]",
-            "No... She’s getting closer!"
+            "No... She’s getting closer!",
+			"[Click the nurse to attack with your new found strength.]",
         ]
     },
+	{
+        "background": "hospital-room-nurse-3.png",
+		"type": "minigame",
+		"enemies": [
+			"nurse (1).png",
+			"nurse (2).png",
+			"nurse (3).png",
+		],
+		"allies": [
+			"patient (1).png",
+			"patient (2).png",
+			"patient (3).png",
+		]
+	},
     {
         "background": "corridor-fibro-1.png",
         "type": "dialogue",
@@ -137,7 +152,7 @@ const sceneData = [
         "dialogue": [
 			"...",
 			"[More platelets and fibronectic stick to your skin.]",
-			"[You can't more, can't breathe...]",
+			"[You can't move, can't breathe...]",
 			"...",
         ]
     },
